@@ -3,93 +3,59 @@ const router = express.Router();
 
 const { Genre, validateGenre } = require("../models/genre");
 
-router.get("/", (req, res) => {
-  async function getAll(model) {
-    try {
-      const result = await model.find().sort("name");
-      res.json(result);
-    } catch (err) {
-      res.status(404).json(err);
-    }
-  }
-
-  getAll(Genre);
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
+  return res.json(genres);
 });
 
-router.post("/", (req, res) => {
-  async function post(model, data) {
-    try {
-      await validateGenre(req.body);
-      const newDocument = await model.create(data);
-
-      return res.json(newDocument);
-    } catch (err) {
-      if (err.isJoi) {
-        return res.status(400).json({ err: err.details[0].message });
-      }
-      return res.status(404).json(err);
-    }
+router.post("/", async (req, res) => {
+  const { error } = validateGenre(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
   }
 
-  post(Genre, { name: req.body.name });
+  try {
+    const newGenre = await Genre.create(req.body);
+    return res.json(newGenre);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.put("/:id", (req, res) => {
-  async function put(model, id, data) {
-    try {
-      await validateGenre(req.body);
-      const document = await model.findByIdAndUpdate(
-        id,
-        { $set: data },
-        { new: true }
-      );
-      return res.json(document);
-    } catch (err) {
-      if (err.isJoi === true) {
-        return res.status(400).json({ err: err.details[0].message });
-      }
-      return res.status(404).json(err);
-    }
+router.put("/:id", async (req, res) => {
+  const { error } = validateGenre(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
   }
 
-  put(Genre, req.params.id, req.body);
+  try {
+    const genre = await Genre.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    return res.json(genre);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.delete("/:id", (req, res) => {
-  async function deleteById(model, id) {
-    try {
-      const document = await model.findByIdAndRemove(id);
+router.delete("/:id", async (req, res) => {
+  const deletedGenre = await Genre.findByIdAndRemove(req.params.id);
 
-      if (document === null) {
-        throw new Error("The genre with the given ID was not found.");
-      }
-
-      res.send(document);
-    } catch (err) {
-      console.log(err);
-      return res.status(404).json({ error: err.message });
-    }
+  if (!deletedGenre) {
+    return res.status(404).json({ error: "Genre with given ID wasn't found." });
   }
 
-  deleteById(Genre, req.params.id);
+  return res.json(deletedGenre);
 });
 
-router.get("/:id", (req, res) => {
-  async function getById(model, id) {
-    try {
-      const document = await model.findById(id);
-      return res.json(document);
-    } catch (err) {
-      if (err.reason === undefined) {
-        return res
-          .status(404)
-          .json({ error: "The genre with the given ID was not found." });
-      }
-      return res.status(404).json(err);
-    }
+router.get("/:id", async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
+
+  if (!genre) {
+    return res.status(404).json({ error: "Genre with given ID wasn't found." });
   }
 
-  getById(Genre, req.params.id);
+  return res.json(genre);
 });
 
 module.exports = router;
