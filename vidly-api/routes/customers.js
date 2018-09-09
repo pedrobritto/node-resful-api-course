@@ -1,30 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const mongoose = require("mongoose");
-const Joi = require("joi");
-
-const Customer = mongoose.model(
-  "Customer",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      minlength: 2,
-      lowercase: true
-    },
-    phone: {
-      type: String,
-      minlength: 8,
-      maxlength: 10,
-      required: true
-    },
-    isGold: {
-      type: Boolean,
-      required: true
-    }
-  })
-);
+const { Customer, validateCustomer } = require("../models/customer");
 
 router.get("/", async (req, res) => {
   try {
@@ -49,6 +26,12 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const { error } = validateCustomer(req.body);
+
+  if (error) {
+    return res.status(400).json(error);
+  }
+
   try {
     const document = await Customer.create(req.body);
     return res.json(document);
