@@ -56,10 +56,10 @@ router.put("/:id", async (req, res) => {
     return res.status(400).json({ error: "Invalid genre." });
   }
 
-  const movie = await Genre.findByIdAndUpdate(
+  const movie = await Movie.findByIdAndUpdate(
     req.params.id,
     {
-      title: req.params.title,
+      title: req.body.title,
       genre: {
         _id: genre._id,
         name: genre.name
