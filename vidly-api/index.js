@@ -3,6 +3,7 @@ const app = express();
 
 const genres = require("./routes/genres");
 const customers = require("./routes/customers");
+const movies = require("./routes/movies");
 
 const mongoose = require("mongoose");
 
@@ -14,6 +15,7 @@ mongoose
 app.use(express.json());
 app.use("/genres", genres);
 app.use("/customers", customers);
+app.use("/movies", movies);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
