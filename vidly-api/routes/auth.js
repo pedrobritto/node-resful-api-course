@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-const jwt = require("jsonwebtoken");
 
-const { User } = require("../models/user");
+const { User, generateAuthToken } = require("../models/user");
 
 router.post("/", async (req, res) => {
   // Validate user input with JOI
@@ -27,10 +25,8 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ error: "Invalid email or password." });
   }
 
-  const token = await jwt.sign({ _id: user._id, admin: true }, "privateKey");
+  const token = generateAuthToken();
   return res.json(token);
-
-  // return res.json({ message: "Login successful." });
 });
 
 function validateInput(input) {

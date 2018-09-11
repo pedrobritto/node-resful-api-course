@@ -4,7 +4,7 @@ const router = express.Router();
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
-const { User, validateUser } = require("../models/user");
+const { User, generateAuthToken, validateUser } = require("../models/user");
 
 router.get("/", async (req, res) => {
   const result = await User.find()
@@ -32,8 +32,13 @@ router.post("/", async (req, res) => {
     user.password = await bcrypt.hash(user.password, 10);
     await user.save();
 
-    return res.json(_.pick(user, ["_id", "name", "email"]));
+    const token = generateAuthToken();
+
+    return res
+      .header("X-Auth-Token", token)
+      .json(_.pick(user, ["_id", "name", "email"]));
   } catch (err) {
+    console.log(err);
     return res.status(500).json(err);
   }
 });
