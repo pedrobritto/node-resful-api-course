@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const auth = require("../middleware/auth");
+
 const { Genre, validateGenre } = require("../models/genre");
 
 router.get("/", async (req, res) => {
@@ -8,7 +10,7 @@ router.get("/", async (req, res) => {
   return res.json(genres);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validateGenre(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
