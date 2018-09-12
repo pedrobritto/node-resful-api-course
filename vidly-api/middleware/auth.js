@@ -9,7 +9,6 @@ function auth(req, res, next) {
 
   try {
     const decodedToken = jwt.verify(token, config.get("jwtPrivateKey"));
-    console.log(decodedTokenw);
     req.user = decodedToken;
     next();
   } catch (err) {
