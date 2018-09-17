@@ -7,6 +7,7 @@ const { Genre, validateGenre } = require("../models/genre");
 
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
+  throw new Error("ERROR");
   return res.json(genres);
 });
 

@@ -1,0 +1,10 @@
+{"message":"Promise error","stack":"Error: Promise error\n    at Object.<anonymous> (/home/pedro/Documents/nodejs/node-mosh/vidly-api/index.js:29:26)\n    at Module._compile (module.js:652:30)\n    at Object.Module._extensions..js (module.js:663:10)\n    at Module.load (module.js:565:32)\n    at tryModuleLoad (module.js:505:12)\n    at Function.Module._load (module.js:497:3)\n    at Function.Module.runMain (module.js:693:10)\n    at startup (bootstrap_node.js:191:16)\n    at bootstrap_node.js:612:3","level":"error","timestamp":"2018-09-16T22:50:35.941Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T22:50:35.964Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T22:53:38.774Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T22:54:07.555Z"}
+{"level":"error","message":"Catch me!","timestamp":"2018-09-16T22:54:22.036Z"}
+{"level":"error","message":"Catch me!","timestamp":"2018-09-16T22:54:48.349Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:01:52.450Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:03:21.030Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:03:41.296Z"}
+{"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:05:20.729Z"}
