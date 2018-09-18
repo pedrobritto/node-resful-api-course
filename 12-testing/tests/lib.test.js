@@ -27,9 +27,28 @@ describe("greet", () => {
 describe("getCurrencies", () => {
   it("should return supported currencies", () => {
     const result = lib.getCurrencies();
-
-    // expect(result).toContain("USD");
-
     expect(result).toEqual(expect.arrayContaining(["USD", "AUD", "EUR"]));
+  });
+});
+
+describe("getProduct", () => {
+  it("should return the product with the given id", () => {
+    const result = lib.getProduct(1);
+    expect(result).toMatchObject({ id: 1, price: 10 });
+  });
+});
+
+describe("registerUser", () => {
+  it("should throw if username is falsy", () => {
+    const args = [null, undefined, NaN, "", 0, false];
+    args.map(item => {
+      expect(() => lib.registerUser(item)).toThrow();
+    });
+  });
+
+  it("should return a user object if valid username is passed", () => {
+    const result = lib.registerUser("mosh");
+    expect(result).toMatchObject({ username: "mosh" });
+    expect(result.id).toBeGreaterThan(0);
   });
 });
