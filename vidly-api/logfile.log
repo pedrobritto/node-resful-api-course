@@ -8,3 +8,6 @@
 {"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:03:21.030Z"}
 {"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:03:41.296Z"}
 {"level":"info","message":"Connected to MongoDB...","timestamp":"2018-09-16T23:05:20.729Z"}
+{"level":"info","message":"Connected to mongodb://localhost:27017/vidly","timestamp":"2018-09-23T11:15:42.351Z"}
+{"level":"info","message":"Connected to mongodb://localhost:27017/vidly_test","timestamp":"2018-09-23T11:15:56.506Z"}
+{"level":"info","message":"Connected to mongodb://localhost:27017/vidly_test","timestamp":"2018-09-23T11:18:29.140Z"}
